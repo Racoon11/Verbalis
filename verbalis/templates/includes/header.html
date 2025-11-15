@@ -1,0 +1,37 @@
+{% load static %}
+<header>
+  <nav class="navbar navbar-light verbalis-nav" style="background-color: #D6ECFA">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'users:about' %}">
+        <img src="{% static 'img/logo_text.png' %}" width="180" class="d-inline-block align-top" alt="">
+      </a>
+      {% with request.resolver_match.view_name as view_name %}
+        <ul class="nav nav-pills">
+          {% if user.is_authenticated %}
+            {% comment %} <div class="btn-group" role="group" aria-label="Basic outlined example">
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                  href="{% url 'blog:create_post' %}">Написать пост</a></button>
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                  href="{% url 'blog:profile' user.username %}">{{ user.username }}</a></button>
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                  href="{% url 'logout' %}">Выйти</a></button>
+            </div> {% endcomment %}
+              <form method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="verbalis-nav-btn">Выйти</button>
+              </form>
+          {% else %}
+            {% if view_name != 'login' %}
+                <button type="button" class="verbalis-nav-btn"><a class="text-decoration-none text-reset"
+                    href="{% url 'login' %}">Вход</a></button>
+            {% endif %}
+            {% if view_name != 'users:registration' %}
+                <button type="button" class="verbalis-nav-btn"><a class="text-decoration-none text-reset"
+                    href="{% url 'users:registration' %}">Регистрация</a></button>
+            {% endif %}
+          {% endif %}
+        </ul>
+      {% endwith %}
+    </div>
+  </nav>
+</header>

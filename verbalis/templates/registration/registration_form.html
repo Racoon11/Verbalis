@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="col-5 m-3 mx-auto verbalis-form-div">
+    <div class="verbalis-form-title">
+      Регистрация пользователя
+    </div>
+    <div class="">
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class='center-div'>
+            <button type="submit" class="verbalis-form-btn">Зарегистрироваться</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

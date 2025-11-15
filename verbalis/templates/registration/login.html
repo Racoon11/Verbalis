@@ -1,0 +1,50 @@
+<!-- templates/registration/login.html -->
+{% extends "base.html" %}
+<!-- Загружаем библиотеку для работы со стилями Bootstrap. -->
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <!-- Если в запросе передан GET-параметр с указанием страницы, 
+    куда надо перейти после входа. -->
+  {% if next %}
+    <!-- Если пользователь уже залогинен, но не обладает нужными правами. -->
+    {% if user.is_authenticated %}
+      <p class='verbalis-alert'>
+        У вашего аккаунта нет доступа к этой странице.
+        Чтобы продолжить, войдите в систему с аккаунтом,
+        у которого есть доступ.
+      </p>
+    {% else %}
+      <p class='verbalis-alert'>
+        Пожалуйста, войдите в систему,
+        чтобы просматривать эту страницу.
+      </p>
+    {% endif %}
+  {% endif %}
+
+  <div class="col-5 m-3 mx-auto verbalis-form-div">
+    <div class="verbalis-form-title">
+      Войти в систему
+    </div>
+    <div class="">
+      <!-- В атрибуте action указываем адрес, куда должен отправляться запрос. -->
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        {{ form }}  
+        <!-- В скрытом поле передаём параметр next, 
+          это URL для переадресации после логина. -->
+        <input type="hidden" name="next" value="{{ next }}">
+        <div>
+          <!-- Ссылка для перехода на страницу восстановления пароля. -->
+          <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+        </div>
+
+        <div class='center-div'>
+            <button type="submit" class="verbalis-form-btn">Войти</button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+{% endblock %}
