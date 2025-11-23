@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Профиль {{ object.username }}
+{% endblock %}
+{% block content %}
+  <div class="col-7 m-3 mx-auto verbalis-user-div">
+    <div class='row'>
+      <div class='col'>
+        {% if object.image %}
+          <img width=100% src="{{ object.image.url }}"  class='verbalis-profile-img'>
+        {% else %}
+          <img width=100% src="{% static 'img/profile.png' %}" class='verbalis-profile-img'>
+        {% endif %}
+      </div>
+      <div class="col verbalis-user-info-div">
+        <div class='verbalis-username'>
+          {{ object.username }}
+        </div>
+        <div class="verbalis-email">
+          {{ object.email }}
+        </div>
+        
+        <div class='row foll-div'>
+          <div class='col'>
+            <div class='foll-number'>{{ number_followed }}</div>
+            <div class='foll-text'>Подписки</div>
+          </div>
+          <div class='col'>
+            <div class='foll-number'>{{ number_following }}</div>
+            <div class='foll-text'>Подписчики</div>
+          </div>
+        </div>
+
+        <div>
+          {% if object == user %}
+            <button class='find-friend-button'>
+              {% comment %} <img src="{% static 'img/person-plus-fill.svg' %}" alt="плюс" width="auto" height="30" class='friend-plus-img'> {% endcomment %}
+              {% include "includes/person_plus.html" %}
+              Найти новых друзей
+            </button>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="find-friend-button">Выйти</button>
+            </form>
+          {% else %}
+            <button class='find-friend-button'>
+              {% if is_following %}
+                <a class='button-link' href="{% url 'users:unfollow' object.pk %}">Отписаться</a>
+              {% else %}
+                <a class='button-link' href="{% url 'users:follow' object.pk %}">Подписаться</a>
+              {% endif %}
+            </button>
+          {% endif %}
+        </div>
+
+      </div>
+      
+      <div class='col-1 pencil'>
+        {% if object == user %}
+          <a href="{% url 'users:edit' %}"> {% include "includes/pencil.html" %} </a>
+        {% endif %}
+      </div>
+      
+    </div>
+        
+  </div>
+{% endblock %}

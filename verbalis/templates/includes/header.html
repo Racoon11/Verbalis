@@ -8,18 +8,26 @@
       {% with request.resolver_match.view_name as view_name %}
         <ul class="nav nav-pills">
           {% if user.is_authenticated %}
-            {% comment %} <div class="btn-group" role="group" aria-label="Basic outlined example">
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'blog:create_post' %}">Написать пост</a></button>
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'blog:profile' user.username %}">{{ user.username }}</a></button>
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'logout' %}">Выйти</a></button>
-            </div> {% endcomment %}
-              <form method="post" action="{% url 'logout' %}">
-                  {% csrf_token %}
-                  <button type="submit" class="verbalis-nav-btn">Выйти</button>
-              </form>
+            <li class="nav-item">
+              {% if user.cur_language %}
+              <div class='verbalis-lang-div'>
+                <img class='lang-img' src="{{ user.cur_language.icon.url }}">
+                <span class="language-code"> {{ user.cur_language.slug }} </span>
+              </div>
+              {% else %}
+              <div> язык не выбран </div>
+              {% endif %}
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'users:detail' user.pk %}" class='verbalis-nav-username'>
+                {{ user.username }}
+                {% if user.image %}
+                  <img src="{{ user.image.url }}"  class='verbalis-nav-img'>
+                {% else %}
+                  <img src="{% static 'img/profile.png' %}" class='verbalis-nav-img'>
+                {% endif %}
+              </a>
+            </li>
           {% else %}
             {% if view_name != 'login' %}
                 <button type="button" class="verbalis-nav-btn"><a class="text-decoration-none text-reset"
