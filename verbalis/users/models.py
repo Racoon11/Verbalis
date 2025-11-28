@@ -1,10 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from languages.models import Language
 
 
 class VerbalisUser(AbstractUser):
-    cur_language = models.ForeignKey(Language,
+    cur_language = models.ForeignKey('languages.Language',
                                      on_delete=models.SET_NULL,
                                      verbose_name='Изучаемый язык',
                                      null=True,

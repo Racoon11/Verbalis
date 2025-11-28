@@ -8,16 +8,31 @@
       {% with request.resolver_match.view_name as view_name %}
         <ul class="nav nav-pills">
           {% if user.is_authenticated %}
-            <li class="nav-item">
+            <li class="nav-item d-flex justify-content-center">
               {% if user.cur_language %}
               <div class='verbalis-lang-div'>
                 <img class='lang-img' src="{{ user.cur_language.icon.url }}">
                 <span class="language-code"> {{ user.cur_language.slug }} </span>
               </div>
               {% else %}
-              <div> язык не выбран </div>
+              <div class='verbalis-lang-div' style='text-align: center'> язык <br> не выбран </div>
               {% endif %}
             </li>
+            {% if user.cur_language %}
+              <li class="nav-item">
+                {% if streak_today %}
+                <div class='verbalis-streak-div'>
+                  <img class='streak-img' src="{% static 'img/light.png' %}">
+                  <span class="streak-text"> {{ days }} </span>
+                </div>
+                {% else %}
+                <div class='verbalis-streak-off-div'>
+                  <img class='streak-img' src="{% static 'img/light_off.png' %}">
+                  <span class="streak-text" style='color: #a8a8a8'> {{ days }} </span>
+                </div>
+                {% endif %}
+              </li>
+            {% endif %}
             <li class="nav-item">
               <a href="{% url 'users:detail' user.pk %}" class='verbalis-nav-username'>
                 {{ user.username }}
@@ -42,4 +57,23 @@
       {% endwith %}
     </div>
   </nav>
+  {% if user.is_authenticated %}
+  {% with request.resolver_match.view_name as view_name %}
+    <nav class="navbar navbar-light verbalis-nav" style="background-color: #D6ECFA; margin-top: 1px; margin-left: auto; padding: 0;">
+      <div class="container">
+      <ul class="nav nav-pills ms-auto">
+        <li class="nav-item verbalis-header-li {% if view_name == 'users:list' %} header-chosen {% endif %}">
+          <a class='verbalis-nav-link' href='{% url "users:list" %}'>Тренировка</a>
+        </li>
+        <li class="nav-item verbalis-header-li {% if view_name == 'words:collections' %} header-chosen {% endif %}">
+          <a class='verbalis-nav-link' href='{% url "users:list" %}'>Сборники</a>
+        </li>
+        <li class="nav-item verbalis-header-li {% if view_name == 'words:words' %} header-chosen {% endif %}">
+          <a class='verbalis-nav-link' href='{% url "users:list" %}'>Слова</a>
+        </li>
+      </ul>
+    </div>
+    </nav>
+  {% endwith %}
+  {% endif %}
 </header>

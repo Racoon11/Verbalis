@@ -1,0 +1,24 @@
+{% load static %}
+<div class='row d-flex align-items-center' style='padding: 0px 5px'>
+    <div class='col-2  d-flex justify-content-end' style='padding: 10px'>
+        {% if obj.image %}
+            <img src="{{ obj.image.url }}"  class='verbalis-profile-img'>
+        {% else %}
+            <img src="{% static 'img/profile.png' %}" class='verbalis-profile-img'>
+        {% endif %}
+    </div>
+    <div class='col' style='padding: 0 0'>
+        <div class='verbalis-username' style='font-size: 15pt;'>
+          {{ obj.username }}
+        </div>
+    </div>
+    <div class='col d-flex justify-content-end'>
+        <div>
+            <button class='user-card-button'>
+                <a class='verbalis-link' href="{% url 'users:follow' obj.pk %}">
+                    {% include "includes/svg/person_plus.html" %}
+                </a>
+            </button>
+        </div>
+    </div>
+</div>

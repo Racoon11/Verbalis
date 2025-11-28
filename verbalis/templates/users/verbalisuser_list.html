@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Список пользователей
+{% endblock %}
+{% block content %}
+<div class="col-4 m-3 mx-auto verbalis-user-div" style='padding: 30px'>
+  <div class='row'>
+    <form method="get" class="search-container">
+      <input type="text" name="q" class="search-input" placeholder="Поиск..." value="{{ request.GET.q }}">
+      <button type="submit" class="search-button">
+        {% include "includes/svg/search.html" %}
+      </button>
+    </form>
+  </div>
+  <div class='row'>
+    <div class="col verbalis-user-info-div">
+      {% for obj in page_obj %}
+          {% include "includes/user_card.html" %}
+      {% endfor %}
+      {% include "includes/paginator.html" %}
+    </div>
+  </div>
+</div>
+{% endblock %}

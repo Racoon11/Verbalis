@@ -35,9 +35,11 @@
         <div>
           {% if object == user %}
             <button class='find-friend-button'>
+              <a href="{% url 'users:list'%}" class='verbalis-link'>
               {% comment %} <img src="{% static 'img/person-plus-fill.svg' %}" alt="плюс" width="auto" height="30" class='friend-plus-img'> {% endcomment %}
-              {% include "includes/person_plus.html" %}
+              {% include "includes/svg/person_plus.html" %}
               Найти новых друзей
+              </a>
             </button>
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
@@ -58,7 +60,7 @@
       
       <div class='col-1 pencil'>
         {% if object == user %}
-          <a href="{% url 'users:edit' %}"> {% include "includes/pencil.html" %} </a>
+          <a href="{% url 'users:edit' %}"> {% include "includes/svg/pencil.html" %} </a>
         {% endif %}
       </div>
       

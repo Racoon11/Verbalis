@@ -14,6 +14,12 @@ def follow(request, user_id):
         following_user=request.user,
         followed_user=followed_user
     )
+    # Безопасное получение referer
+    referer = request.META.get('HTTP_REFERER')
+    if referer:
+        return redirect(referer)
+
+    # Если referer нет — редирект на профиль
     return redirect('users:detail', pk=user_id)
 
 
@@ -24,4 +30,10 @@ def unfollow(request, user_id):
         following_user=request.user,
         followed_user=followed_user
     ).delete()
+    # Безопасное получение referer
+    referer = request.META.get('HTTP_REFERER')
+    if referer:
+        return redirect(referer)
+
+    # Если referer нет — редирект на профиль
     return redirect('users:detail', pk=user_id)
