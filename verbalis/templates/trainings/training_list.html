@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}
+  Тренировка
+{% endblock %}
+{% load static %}
+{% block content %}
+    <div class="col-6 m-3 mx-auto verbalis-user-div" style='margin-bottom: 40px !important'>
+        <div class='row words-to-repeat-div'>
+            <div>
+                <a>
+                    <span class='special-font'>100</span> слов нужно повторить
+                </a>
+            </div>
+        </div>
+        <div class='row words-to-repeat-div' style='background-color: #E8FFE8; margin-bottom: 0'>
+            <div>
+                <a>
+                    <span class='special-font'>10</span> новых слов для изучения
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class='col-8 m-3 mx-auto'>
+        <div class='row'>
+            <div class='col-1'>
+            </div>
+            <div class='col-10 verbalis-training-text'>
+                Ваш план тренировки:
+            </div>
+            <div class='col-1 pencil'>
+                <a href="{% url 'trainings:edit' %}"> {% include "includes/svg/pencil.html" %} </a>
+            </div>
+        </div>
+        <div class="modules-grid">
+        {% for module in modules %}
+            <div class="module-card">
+            {% if forloop.first %}
+                <img src="{% static 'img/open_puzzle.png' %}">
+            {% elif forloop.last %}
+                <img src="{% static 'img/close_puzzle.png' %}">
+            {% else %}
+                <img src="{% static 'img/middle_puzzle.png' %}">
+            {% endif %}
+                <div class="module-overlay">
+                    <span>{{ module.displayed }}</span>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

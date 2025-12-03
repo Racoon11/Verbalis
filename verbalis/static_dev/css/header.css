@@ -1,0 +1,141 @@
+.verbalis-nav {
+    box-shadow: 0px 2px 7px #9EC2FF;
+}
+
+.verbalis-nav-btn {
+    background-color: #F0F5F8;
+    border: 2px solid #3A82FA;
+    font-size: 13pt;
+    border-radius: 15px;
+    font-weight: 600;
+    color: #3A82FA;
+    padding: 15px 25px;
+    margin: 5px 10px;
+}
+
+.verbalis-header {
+    color: #234681;
+    font-size: 24px;
+    font-weight: 600;
+    background-color: #f8f9fa;
+    padding: 20px 30px;
+    border-left: 5px solid #3A82FA;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    margin: 20px auto;
+}
+
+.verbalis-nav-img {
+    width: 65px; 
+    height: 65px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #888;
+    border: 3px solid #3A82FA;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.verbalis-nav-username {
+    text-decoration: none;
+    font-weight: 600;
+    color: #3A82FA;
+    font-size: 15pt;
+    margin: 0;
+}
+
+.verbalis-lang-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* расстояние между флагом и текстом */
+    padding: 8px 15px;
+    background-color: #F6F6F6;
+    border: 2px solid black;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    margin-right: 20px;
+}
+
+/* .verbalis-lang-div:hover {
+  background-color: #e9e9e9;
+  border-color: #bbb;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+} */
+
+.lang-img {
+    width: 45px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+@font-face {
+  font-family: 'ADLaM Display';
+  src: url('../fonts/ADLaMDisplay-Regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.language-code {
+  font-family: 'ADLaM Display', Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  color: #222;
+}
+
+.verbalis-streak-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* расстояние между флагом и текстом */
+    padding: 8px 15px;
+    background-color: #FFFEF2;
+    border: 2px solid #EEBF32;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    margin-right: 20px;
+}
+
+.verbalis-streak-off-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* расстояние между флагом и текстом */
+    padding: 8px 15px;
+    background-color: #ffffff;
+    border: 2px solid #a8a8a8;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    margin-right: 20px;
+    color: #a8a8a8;
+}
+
+.streak-img {
+    width: 30px;
+    height: auto;
+    object-fit: contain;
+}
+
+.streak-text {
+    font-family: 'ADLaM Display', Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    color: #EEBF32;
+}
+
+.verbalis-nav-link {
+    color:#234681;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.verbalis-header-li {
+    padding: 7px 15px;
+}
+
+.header-chosen {
+    background-color: #A1BBE7;
+}

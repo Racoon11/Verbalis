@@ -1,0 +1,108 @@
+body {
+    background-color: #F0F5F8 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.verbalis-test-div {
+    color: #234681;
+    background-color: #f8f9fa;
+    padding: 20px 30px;
+    border-left: 5px solid #3A82FA;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    margin: 20px auto;
+    font-size: 15pt;
+}
+
+.center-div {
+    display: flex; justify-content: center; align-items: center;
+}
+
+.verbalis-alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  border: none;
+  text-align: center;
+  color: #234681;
+}
+
+#file-upload-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.button-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.user-card-button {
+    align-items: center;
+    background-color: #3A82FA;
+    color:white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.verbalis-link {
+    text-decoration: none;
+    color: white;
+}
+
+.pagination-text {
+    color: #234681;
+    font-size: 13pt;
+    margin: 10px 30px;
+    font-weight: 700;
+}
+
+.search-container {
+  display: flex;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.search-input {
+  padding: 7px 16px;
+  font-size: 16px;
+  border: 2px solid #234681;
+  border-radius: 10px 0 0 10px;
+  border-right: none;
+  outline: none;
+  margin: 0 !important;
+}
+
+.search-button {
+  padding: 7px 10px;
+  background-color: white;
+  border: 2px solid #234681;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+  border-left: none;
+  font-size: 16px;
+  color:#234681;
+}
+
+.search-button:hover {
+  background: #F0F5F8;
+}
+
+.verbalis-user-div {
+    background-color: white;
+    box-shadow: 0px 0px 4px #3A82FA;
+    padding: 2% 5%;
+    border-radius: 15px;
+}

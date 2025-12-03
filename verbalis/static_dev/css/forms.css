@@ -1,0 +1,51 @@
+.verbalis-form-div {
+    background-color: white;
+    opacity: 92%;
+    box-shadow: 0px 0px 4px #234681;
+    padding: 2% 5%;
+    border-radius: 15px;
+}
+
+.verbalis-form-title {
+    color: #3A82FA;
+    font-weight: 600;
+    text-align: center;
+    font-size: 15pt;
+    margin: 10px;
+    
+}
+
+label {
+    color: #234681;
+    font-weight: 600;
+    display: block;
+    width: 95%;
+}
+
+input {
+    display: block;
+    border: 2px solid #234681;
+    border-radius: 7px;
+    padding: 5px;
+    padding-left: 10px;
+    width: 100%;
+    margin-bottom: 3% !important;
+
+    color: #234681;
+    font-weight: 300 !important;
+}
+
+#image-clear_id {
+    display: inline;
+    width: auto;
+}
+
+.verbalis-form-btn {
+    background-color: #3A82FA;
+    border-radius: 7px;
+    width: 50%;
+    padding: 7px;
+    margin: 3% 2%;
+    color: white;
+    border: none;
+}

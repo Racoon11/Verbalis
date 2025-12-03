@@ -1,0 +1,79 @@
+.words-to-repeat-div {
+    background-color: #E8F1FF;
+    text-align: center;
+    font-size: 22pt;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 26px;
+}
+
+.special-font {
+    font-family: 'ADLaM Display', Arial, Helvetica, sans-serif;
+}
+
+.verbalis-training-text {
+    text-align: center;
+    font-size: 16pt;
+}
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 5px;
+  padding: 5px;
+}
+
+.module-card {
+  position: relative;
+  overflow: hidden;
+  /* Делаем все карточки одинаковой высоты */
+  aspect-ratio: 2 / 1.5; /* Квадрат. Или 3/2, 16/9 и т.д. */
+  /* ИЛИ фиксированная высота: height: 200px; */
+}
+
+.module-card img {
+  width: auto;
+  height: 100%; /* Занимает всю карточку */
+  object-fit: cover; /* Масштабирует без искажений */
+  display: block;
+}
+
+.module-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  padding: 20px;
+  text-align: center;
+  /* Если нужно полупрозрачный фон: */
+  /* background: rgba(255, 255, 255, 0.8); */
+}
+
+
+
+
+
+.puzzle-zone {
+  display: flex;
+  gap: 10px;
+  min-height: 100px;
+  padding: 10px;
+  border: 2px dashed #ccc;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.draggable {
+  width: 80px;
+  height: 80px;
+  cursor: move;
+  user-select: none;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+}

@@ -62,8 +62,8 @@
     <nav class="navbar navbar-light verbalis-nav" style="background-color: #D6ECFA; margin-top: 1px; margin-left: auto; padding: 0;">
       <div class="container">
       <ul class="nav nav-pills ms-auto">
-        <li class="nav-item verbalis-header-li {% if view_name == 'users:list' %} header-chosen {% endif %}">
-          <a class='verbalis-nav-link' href='{% url "users:list" %}'>Тренировка</a>
+        <li class="nav-item verbalis-header-li {% if 'trainings' in view_name %} header-chosen {% endif %}">
+          <a class='verbalis-nav-link' href='{% url "trainings:list" %}'>Тренировка</a>
         </li>
         <li class="nav-item verbalis-header-li {% if view_name == 'words:collections' %} header-chosen {% endif %}">
           <a class='verbalis-nav-link' href='{% url "users:list" %}'>Сборники</a>

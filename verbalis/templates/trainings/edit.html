@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}
+  Редактирование тренировки
+{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- Кнопка добавления -->
+<div class='col-8 m-3 mx-auto'>
+        <div class='row'>
+            <div class='col-1'>
+            </div>
+            <div class='col-10 verbalis-training-text'>
+                Редактирование тренировки:
+            </div>
+            <div class='col-1 pencil'>
+                <a href="{% url 'trainings:edit' %}"> {% include "includes/svg/pencil.html" %} </a>
+            </div>
+        </div>
+        <div class="modules-grid">
+        {% for module in modules %}
+            <div class="module-card">
+            {% if forloop.first %}
+                <img src="{% static 'img/open_puzzle.png' %}">
+            {% elif forloop.last %}
+                <img src="{% static 'img/close_puzzle.png' %}">
+            {% else %}
+                <img src="{% static 'img/middle_puzzle.png' %}">
+            {% endif %}
+                <div class="module-overlay" id="{{ module.id }}">
+                    <span>{{ module.displayed }}</span>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+{% comment %} <script src="{% static 'js/edit.js' %}"></script> {% endcomment %}
+{% endblock%}
