@@ -1,0 +1,159 @@
+.more-button {
+    color: #234681;
+    background-color: white;
+    border: none;
+    display: inline;
+    padding: 0;
+}
+
+.plus-button {
+    color: #234681;
+    background-color: #D6ECFA;
+    border: 2px solid #234681;
+    border-radius: 5px;
+    font-size: 15pt;
+    padding: 0px 9px;
+}
+
+
+.plus-button:hover {
+    background-color: #bbddf2;
+}
+
+
+.word-title {
+    color:#234681;
+    font-size: 15pt;
+    font-weight: 700;
+}
+
+.part-of-speach {
+    color:#234681;
+    font-size: 9pt;
+    font-weight: 500;
+
+}
+
+.collapsible {
+    cursor: pointer;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    user-select: none;
+    
+}
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    display: none;
+    transition: max-height 0.3s ease;
+}
+
+.content.show {
+    display: block;
+    max-height: 200px; /* достаточно для большинства текстов */
+}
+
+
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.word-card {
+  width: 100%;
+  background: white;
+  border: 2px solid #A2C5FF;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 0 4px #A2C5FF;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.word-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.badge {
+  font-size: 12px;
+  color: #fff;
+  background: #28a745;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.icon-book {
+  font-size: 20px;
+  margin-right: 8px;
+  color: #6c757d;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #234681;
+  flex-grow: 1;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #234681;
+  padding: 0;
+  border-radius: 4px;
+}
+
+.card-body {
+  padding-top: 8px;
+}
+
+.audio-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.icon-speaker {
+  font-size: 16px;
+  color: #6c757d;
+}
+
+.part-of-speech {
+  font-size: 14px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.usage-example {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.translation {
+    font-weight: 500;
+    font-size: 16px;
+
+}

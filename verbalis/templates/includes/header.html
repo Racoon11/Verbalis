@@ -68,8 +68,8 @@
         <li class="nav-item verbalis-header-li {% if view_name == 'words:collections' %} header-chosen {% endif %}">
           <a class='verbalis-nav-link' href='{% url "users:list" %}'>Сборники</a>
         </li>
-        <li class="nav-item verbalis-header-li {% if view_name == 'words:words' %} header-chosen {% endif %}">
-          <a class='verbalis-nav-link' href='{% url "users:list" %}'>Слова</a>
+        <li class="nav-item verbalis-header-li {% if 'words' in view_name %} header-chosen {% endif %}">
+          <a class='verbalis-nav-link' href='{% url "words:user_list" %}'>Слова</a>
         </li>
       </ul>
     </div>

@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/detail.css' %}">
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/trainings.css' %}">
+    <link rel="stylesheet" href="{% static 'css/words.css' %}">
     <title>
       {% block title %}{% endblock %}
     </title>
@@ -28,7 +29,7 @@
   <body>
     {% include "includes/header.html" %}
     <main>
-      <div class="container py-5">
+      <div class="container py-3">
         {% block content %}{% endblock %}
       </div>
     </main>

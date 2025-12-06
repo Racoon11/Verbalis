@@ -1,0 +1,27 @@
+<div class='row d-flex align-items-center toggle-box' style='padding: 0px 5px'>
+    <div class='col-12'>
+        <button class='more-button' type="button"> {% include "includes/svg/more.html" %} </button>
+        <button class='plus-button' type="button"> 
+            {% if obj.is_in_userwords %}
+                <a style='text-decoration: none; color: grey' title="Уже в словаре"> <b> + </b></a>
+            {% else %}
+                <a style='text-decoration: none; color: #234681' href="{% url 'words:add_word' obj.pk %}"> <b> + </b></a>
+            {% endif %}
+        </button>
+        <span class='word-title'> {{ obj.word }} - {{ obj.word_translate }} </span>
+    </div>
+
+    <div style='padding: 5px 50px;' class='content show'>
+        <button class='more-button' type="button"> {% include "includes/svg/volume.html" %} </button>
+        <span class='part-of-speach'>[{{ obj.part_of_speach }}]</span>
+        <ul>
+            {% for sent in obj.sentence_set.all %}
+            <li>
+            <div class='examples'>
+                {{ sent.sentence }}
+            </div>
+            {% endfor %}
+            </li>
+        </ul>
+    </div>
+</div>

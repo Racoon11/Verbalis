@@ -1,0 +1,21 @@
+{% load static %}
+<div class="word-card">
+    <div class="card-header">
+        <span class="icon-book"><img src="{% static 'img/book_closed.png' %}" style='width:40px'></span>
+        <h3>{{ obj.word }} <div class='translation'> {{obj.word_translate}} </div></h3>
+        <a class="delete-btn" href="{% url 'words:remove_word' obj.pk %}">
+            {% include "includes/svg/trash.html" %}
+        </a>
+    </div>
+    <div class="card-body">
+    <div class="audio-section">
+        <span class="icon-speaker">{% include "includes/svg/volume.html" %}</span>
+        <span class="part-of-speech">[{{obj.part_of_speach}}]</span>
+    </div>
+    <p class="usage-example" title='{{ obj.sentence_set.first }}'> 
+        {% if obj.sentence_set.first %}
+        {{ obj.sentence_set.first }}
+        {% endif %}
+    </p>
+    </div>
+</div>
