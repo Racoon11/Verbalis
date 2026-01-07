@@ -1,0 +1,42 @@
+{% load static %}
+<div class="word-card">
+    <div class="card-header">
+        
+        <a style='text-decoration: none;' href="{% url 'words:collection_detail' obj.pk %}"> <h3 style='font-size: 25pt; text-decoration: none;'> <div class='translation'> {{ obj.owner }} </div> {{ obj.name }} </h3> <a>
+        {% if obj.owner != request.user %}
+            {% if obj.is_in_usercoll or obj.is_in_usercoll is null%}
+                <a class="delete-btn" style='color: #EEBF32' href="{% url "words:remove_collection" obj.pk %}">
+                    {% include "includes/svg/star_fill.html" %}
+                </a>
+            {% else %}
+                <a class="delete-btn" style='color: #EEBF32' href="{% url "words:add_collection" obj.pk %}">
+                    {% include "includes/svg/star.html" %}
+                </a>
+            {% endif %}
+        {% else %}
+            <a class="delete-btn" style='color: #EEBF32' href="">
+            </a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+
+        <p class="collection-description" title='{{ obj.description}}'> 
+            {% if obj.description %}
+                {{ obj.description }}
+            {% endif %}
+        </p>
+
+        <p class="usage-example"> 
+            {% if obj.words %}
+            ({{ obj.words.all|length }})
+            {% for w in obj.words.all %}
+                {% if forloop.last %}
+                    {{ w.word }}
+                {% else %}
+                    {{ w.word }}, 
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+        </p>
+    </div>
+</div>

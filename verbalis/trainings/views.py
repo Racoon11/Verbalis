@@ -1,6 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from django.db import transaction
+from django.utils import timezone
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+
+import json
+import random
+
+from words.models import Word
 from .models import UserLanguageTraining, TrainingModule
 
 
@@ -68,3 +77,60 @@ class TrainingEditListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+@login_required
+def training_view(request):
+    today = timezone.now().date()
+    user = request.user
+    words = Word.objects.filter(
+        userword__user=user,
+        userword__next_train_date__lte=today
+    )[:5]
+
+    # Префетчим предложения, чтобы избежать N+1
+    words_with_sents = words.prefetch_related('sentences')
+    words_data = []
+    for word in words_with_sents:
+        # Преобразуем QuerySet предложений в список словарей
+        sentences_list = [
+            {
+                'text': sent.sentence,
+            }
+            for sent in word.sentences.all()[:5]
+        ]
+
+        words_data.append({
+            'id': word.id,
+            'word': word.word,
+            'translation': word.word_translate,
+            'part_of_speach': word.part_of_speach,
+            'sentences': sentences_list  # ← теперь это обычный список!
+        })
+
+    context = {
+        'words': json.dumps(words_data, ensure_ascii=False),
+        'user_id': user.id
+    }
+    return render(request, 'trainings/train.html', context)
+
+
+def get_similar(request, pk):
+    word = get_object_or_404(Word, pk=pk)
+    lang = word.language
+    words = Word.objects.exclude(pk=pk).filter(language=lang)
+
+    word_ids = words.values_list('id', flat=True)
+    random_ids = random.sample(list(word_ids), 3)
+    words = Word.objects.filter(id__in=random_ids)
+
+    words_data = [
+        {
+            'id': word.id,
+            'word': word.word,
+            'translation': word.word_translate,
+            # добавь другие поля, которые нужны
+        }
+        for word in words
+    ]
+    return JsonResponse({'words': words_data})

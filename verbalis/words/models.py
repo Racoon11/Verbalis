@@ -30,7 +30,9 @@ class UserWord(models.Model):
 
 class Sentence(models.Model):
     sentence = models.CharField("Предложение", max_length=300)
-    words = models.ManyToManyField(Word, verbose_name="слова в предложении")
+    words = models.ManyToManyField(Word,
+                                   verbose_name="слова в предложении",
+                                   related_name='sentences')
 
     class Meta:
         verbose_name = 'предложение'
@@ -43,15 +45,15 @@ class Sentence(models.Model):
 class Collection(models.Model):
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL,
-                              null=True, related_name="owner_set")
+                              null=True, related_name="owner_set", blank=True)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=400)
     creation_date = models.DateField(auto_now_add=True)
     is_public = models.BooleanField()
     words = models.ManyToManyField(Word)
-    users = models.ManyToManyField(User,
-                                   through="CollectionRating",
-                                   related_name="rate_users_set")
+    added_users = models.ManyToManyField(User,
+                                         related_name="added_set",
+                                         null=True, blank=True)
 
     class Meta:
         verbose_name = 'коллекция'
@@ -59,9 +61,3 @@ class Collection(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class CollectionRating(models.Model):
-    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.PositiveSmallIntegerField()

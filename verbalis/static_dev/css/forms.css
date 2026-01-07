@@ -35,6 +35,11 @@ input {
     font-weight: 300 !important;
 }
 
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.2); 
+}
+
 #image-clear_id {
     display: inline;
     width: auto;

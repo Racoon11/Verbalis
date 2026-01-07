@@ -24,11 +24,11 @@
         <div class='row foll-div'>
           <div class='col'>
             <div class='foll-number'>{{ number_followed }}</div>
-            <div class='foll-text'>Подписки</div>
+             <a href="{% url 'users:following' object.pk %}" style='text-decoration: none'> <div class='foll-text'>Подписки</div> </a>
           </div>
           <div class='col'>
             <div class='foll-number'>{{ number_following }}</div>
-            <div class='foll-text'>Подписчики</div>
+            <a href="{% url 'users:followers' object.pk %}" style='text-decoration: none'> <div class='foll-text'>Подписчики</div> </a>
           </div>
         </div>
 

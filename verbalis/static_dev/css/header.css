@@ -44,18 +44,20 @@
     font-size: 15pt;
     margin: 0;
 }
-
-.verbalis-lang-div {
+.verbalis-item-div {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px; /* расстояние между флагом и текстом */
     padding: 8px 15px;
-    background-color: #F6F6F6;
-    border: 2px solid black;
     border-radius: 12px;
     transition: all 0.2s ease;
     margin-right: 20px;
+    height: 100%;
+}
+.verbalis-lang-div {
+    background-color: #F6F6F6;
+    border: 2px solid black;
 }
 
 /* .verbalis-lang-div:hover {
@@ -88,29 +90,13 @@
 }
 
 .verbalis-streak-div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px; /* расстояние между флагом и текстом */
-    padding: 8px 15px;
     background-color: #FFFEF2;
     border: 2px solid #EEBF32;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-    margin-right: 20px;
 }
 
 .verbalis-streak-off-div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px; /* расстояние между флагом и текстом */
-    padding: 8px 15px;
     background-color: #ffffff;
     border: 2px solid #a8a8a8;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-    margin-right: 20px;
     color: #a8a8a8;
 }
 
@@ -138,4 +124,13 @@
 
 .header-chosen {
     background-color: #A1BBE7;
+}
+
+.verbalis-word-div {
+    background-color: #E8F1FF;
+    border: 2px solid #234681;
+}
+
+.word-text {
+    color: #234681;
 }

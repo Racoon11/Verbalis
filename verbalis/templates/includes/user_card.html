@@ -8,9 +8,11 @@
         {% endif %}
     </div>
     <div class='col' style='padding: 0 0'>
-        <div class='verbalis-username' style='font-size: 15pt;'>
-          {{ obj.username }}
-        </div>
+        <a href="{% url 'users:detail' obj.pk %}" style='text-decoration: none'> 
+            <div class='verbalis-username' style='font-size: 15pt;'>
+                {{ obj.username }}
+            </div> 
+        </a>
     </div>
     <div class='col d-flex justify-content-end'>
         <div>

@@ -1,0 +1,21 @@
+<div id="collectionModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Добавить в коллекцию</h3>
+      <form id="addToCollectionForm">
+        {% csrf_token %}
+        <input type="hidden" name="word_id" id="modalWordId">
+        <label for="collectionSelect">Коллекция:</label>
+        <select name="collection_id" id="collectionSelect" required>
+          {% for coll in user_collections %}
+            <option value="{{ coll.id }}">{{ coll.name }}</option>
+          {% empty %}
+            <option disabled>Нет коллекций</option>
+          {% endfor %}
+        </select>
+        <button type="submit">Добавить</button>
+      </form>
+      <div id="modalMessage" style="margin-top: 10px; color: green;"></div>
+    </div>
+  </div>
+</div>

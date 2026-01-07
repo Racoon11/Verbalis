@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Карточка коллекции
+{% endblock %}
+{% block content %}
+<div class="col-7 m-3 mx-auto verbalis-user-div" style='padding: 40px; padding-top: 10px;'>
+  <div class='row'>
+    <div class="col verbalis-user-info-div">
+        <div class="card-header">
+            
+            <h3 style='font-size: 25pt'> <div class='translation'> {{ object.owner }} </div> {{ object.name }} </h3>
+            {% if is_in_usercoll or is_in_usercoll is null%}
+                <a class="delete-btn" style='color: #EEBF32' href="{% url "words:remove_collection" object.pk %}">
+                    {% include "includes/svg/star_fill.html" %}
+                </a>
+            {% else %}
+                <a class="delete-btn" style='color: #EEBF32' href="{% url "words:add_collection" object.pk %}">
+                    {% include "includes/svg/star.html" %}
+                </a>
+            {% endif %}
+        </div>
+        <div class="card-body">
+
+            <p class="collection-description" title='{{ object.description}}'> 
+                {% if object.description %}
+                    {{ object.description }}
+                {% endif %}
+            </p>
+
+            <a href="{% url 'words:add_all_words_collection' object.pk %}"> <button class='plus-button detail' type="button"> <b> добавить все слова в словарь </b> </button> </a>
+
+            <p class="usage-example" style='padding-top: 30px'> 
+                {% if object.words %}
+                <h5 class='verbalis-nav-link'> Слова в коллекции ({{ object.words.all|length }}): </h5>
+                <div class='collection-word-list'>
+                    {% for obj in object.words.all %}
+                        {% include "words/word_card.html" %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

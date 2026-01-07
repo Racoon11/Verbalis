@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Тренировка
+{% endblock %}
+{% block content %}
+<div class="col-7 m-3 mx-auto verbalis-user-div" style='padding: 20px 60px;'>
+    <div class="col verbalis-user-info-div">
+        <div id='train'>
+            <div id='rus-eng'>
+                <div class='col-12 d-flex justify-content-center'>
+                    <span class='word-title detail'> Слово </span>
+                </div>
+                <form>
+                <div class='col-12 d-flex justify-content-center'>
+                    <input id='word-input' class='train-word-input'></input>
+                </div>
+                <div class='col-12 d-flex justify-content-center'>
+                    <button class='plus-button detail clickable-word train-button' style='width: 40%'>Проверить</button>
+                </div>
+              </form>
+
+                
+                <div class='train-help-text d-flex justify-content-end'>
+                    Перевод слова с английского на русский
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  window.APP_DATA = {
+    userId: {{ user_id|default:"null" }},
+    words: {{ words|safe }}
+  };
+</script>
+
+<script src="{% static 'js/train.js' %}"></script>
+
+{% endblock %}
