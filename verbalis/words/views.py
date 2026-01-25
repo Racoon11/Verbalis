@@ -288,7 +288,7 @@ class CollectionUserListView(LoginRequiredMixin, ListView):
                 Q(name__icontains=query) |
                 Q(description__icontains=query)
             )
-        
+
         return qs
 
 

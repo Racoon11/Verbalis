@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Тест рекомендаций
+{% endblock %}
+{% block content %}
+<div class="col-12 verbalis-user-div" style='margin: 30px'>
+  <div class='row'>
+    <div class="col-6 mx-auto">
+        Привет! Ты находишься в приложении для изучения иностранных слов. 
+        Эта страница предназначена для тестирования рекомендательных алгоритмов. 
+        В этой части тебе нужно выбрать от 1 до 10 слов, которые ты теоретически хотел(а) бы изучить.
+        Выбери слова и когда будешь готов(а) нажми на кнопку продолжить.
+    </div>
+  </div>
+  <form method="post" action="{% url 'recsys:recs' %}">
+     {% csrf_token %}
+    <div class="word-grid" style='padding-top: 30px'>
+        {% for obj in object_list %}
+            {% include "recs/word_card.html" %}
+        {% endfor %}
+    </div>
+    <div class="row justify-content-md-center">
+        <button type="submit" class='plus-button detail' style='width:120px; margin-top: 20px'>Отправить</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

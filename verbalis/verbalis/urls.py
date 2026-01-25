@@ -27,4 +27,5 @@ urlpatterns = [
     path('lang/', include('languages.urls')),
     path('training/', include('trainings.urls')),
     path('words/', include('words.urls')),
+    path('recsys/', include('recommendations.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

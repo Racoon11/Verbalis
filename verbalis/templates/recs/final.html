@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static%}
+{% block title %}
+  Verbalis
+{% endblock %}
+{% block content %}
+  <div class="col-7 m-3 mx-auto verbalis-user-div" style='padding: 40px; padding-top: 10px;'>
+    <div class='verbalis-user-info-div row justify-content-md-center'>
+        <div class='row'>
+          <h1 class='word-title' style='font-size: 26pt'> Спасибо за участие! </h1>
+          <p> Можно сделать это ещё раз по <a href='{% url "recsys:test" %}'> ссылке</a>! </p>
+        </div>
+        <div class='row justify-content-md-center' style='width: 50%'>
+          <img src='{% static 'img/animation.gif' %}' alt="Загрузка">
+        </div>
+    </div>
+{% endblock %}

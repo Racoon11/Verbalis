@@ -41,14 +41,12 @@
             {% endif %}
             <li class="nav-item dropdown">
               <a class="verbalis-nav-username" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ user.username }}
+                <span class='ellipsis'> {{ user.username }} </span>
                 {% if user.image %}
                   <img src="{{ user.image.url }}"  class='verbalis-nav-img'>
                 {% else %}
                   <img src="{% static 'img/profile.png' %}" class='verbalis-nav-img'>
                 {% endif %}
-
-                 {% comment %}  {% endcomment %}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url 'users:detail' user.pk %}">Личный кабинет</a></li>

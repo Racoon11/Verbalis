@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Тест рекомендаций
+{% endblock %}
+{% block content %}
+<div class="col-12 verbalis-user-div" style='margin: 30px'>
+  <div class='row'>
+    <div class="col-6 mx-auto">
+        Теперь выбери, какие ещё слова ты бы хотел(а) изучать, здесь можно выбрать сколько угодно, выбери все, которые тебе нравятся! 
+        Не забудь нажать на кнопку "отправить", это важно, чтобы результаты сохранились.
+    </div>
+  </div>
+  <br>
+  <div class='row'>
+    <div class="col-6 mx-auto">
+        Вот слова, которые ты выбрал на предыдущем шаге:
+        <br>
+        {% for obj in chosen %}
+          {{ obj.word }} - {{ obj.word_translate}}; 
+        {% endfor %}
+    </div>
+  </div>
+  <form method="post" action="{% url 'recsys:save' %}"> 
+    {% comment %} поменять action {% endcomment %}
+     {% csrf_token %}
+    <input type='hidden' name='session' value="{{ session.pk }}">
+    <div class="word-grid" style='padding-top: 30px'>
+        {% for obj in recs %}
+            {% include "recs/word_card.html" %}
+        {% endfor %}
+    </div>
+    <div class="row justify-content-md-center">
+        <button type="submit" class='plus-button detail' style='width:120px; margin-top: 20px'>Отправить</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
