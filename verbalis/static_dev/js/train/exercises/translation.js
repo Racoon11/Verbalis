@@ -70,6 +70,8 @@ export class TranslationExercise extends BaseExercise {
         } else {
             chBtn.className += ' ans-correct';
         }
+        const correctBtn = document.getElementById(correct);
+        correctBtn.className += ' ans-correct';
         disableButtons();
         createNextButton(() => this.trainer.nextStep());
     }

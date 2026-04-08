@@ -22,8 +22,11 @@ def user_streak(request):
             next_train_date__lte=today,
             word__language=request.user.cur_language
         ).count()
+        user_languages = UserLanguageStreak.objects.filter(
+            user=request.user).select_related('language')
         return {'days': streak.days,
                 'streak_today':
                 streak.last_updated == today,
-                'words_count': words}
+                'words_count': words,
+                'user_languages': user_languages}
     return {'days': None}

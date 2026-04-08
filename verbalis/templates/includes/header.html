@@ -14,15 +14,32 @@
 
           <!-- Desktop nav items (hidden on mobile) -->
           <ul class="nav nav-pills d-none d-md-flex align-items-center">
-            <li class="nav-item d-flex justify-content-center">
+            <li class="nav-item dropdown">
               {% if user.cur_language %}
-              <div class='verbalis-lang-div verbalis-item-div'>
+              <div class='verbalis-lang-div verbalis-item-div lang-switcher-toggle' data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                 <img class='lang-img' src="{{ user.cur_language.icon.url }}">
                 <span class="language-code"> {{ user.cur_language.slug }} </span>
               </div>
               {% else %}
-              <div class='verbalis-lang-div verbalis-item-div' style='text-align: center'> язык <br> не выбран </div>
+              <div class='verbalis-lang-div verbalis-item-div lang-switcher-toggle' data-bs-toggle="dropdown" aria-expanded="false" style='text-align: center; cursor: pointer;'> язык <br> не выбран </div>
               {% endif %}
+              <ul class="dropdown-menu lang-switcher-menu">
+                {% for streak in user_languages %}
+                <li>
+                  <form method="post" action="{% url 'languages:switch_language' streak.language.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item lang-switcher-item {% if streak.language == user.cur_language %}lang-switcher-active{% endif %}">
+                      {% if streak.language.icon %}
+                        <img class='lang-switcher-icon' src="{{ streak.language.icon.url }}">
+                      {% endif %}
+                      <span>{{ streak.language.language }}</span>
+                    </button>
+                  </form>
+                </li>
+                {% empty %}
+                <li><span class="dropdown-item text-muted">Нет языков</span></li>
+                {% endfor %}
+              </ul>
             </li>
             {% if user.cur_language %}
               <li class="nav-item">
@@ -39,10 +56,12 @@
                 {% endif %}
               </li>
               <li>
-                <div class='verbalis-word-div verbalis-item-div'>
-                  <img class='streak-img' src="{% static 'img/book_final.png' %}">
-                  <span class="streak-text word-text"> {{ words_count }} </span>
-                </div>
+                <a href="{% url 'trainings:train' %}" class="text-decoration-none">
+                  <div class='verbalis-word-div verbalis-item-div'>
+                    <img class='streak-img' src="{% static 'img/book_final.png' %}">
+                    <span class="streak-text word-text"> {{ words_count }} </span>
+                  </div>
+                </a>
               </li>
             {% endif %}
             <li class="nav-item dropdown">
@@ -86,9 +105,28 @@
             </ul>
             <div class="d-flex gap-2 py-2 flex-wrap">
               {% if user.cur_language %}
-              <div class='verbalis-lang-div verbalis-item-div' style='margin-right: 0'>
-                <img class='lang-img' src="{{ user.cur_language.icon.url }}">
-                <span class="language-code"> {{ user.cur_language.slug }} </span>
+              <div class="dropdown">
+                <div class='verbalis-lang-div verbalis-item-div lang-switcher-toggle' data-bs-toggle="dropdown" aria-expanded="false" style='margin-right: 0; cursor: pointer;'>
+                  <img class='lang-img' src="{{ user.cur_language.icon.url }}">
+                  <span class="language-code"> {{ user.cur_language.slug }} </span>
+                </div>
+                <ul class="dropdown-menu lang-switcher-menu">
+                  {% for streak in user_languages %}
+                  <li>
+                    <form method="post" action="{% url 'languages:switch_language' streak.language.id %}">
+                      {% csrf_token %}
+                      <button type="submit" class="dropdown-item lang-switcher-item {% if streak.language == user.cur_language %}lang-switcher-active{% endif %}">
+                        {% if streak.language.icon %}
+                          <img class='lang-switcher-icon' src="{{ streak.language.icon.url }}">
+                        {% endif %}
+                        <span>{{ streak.language.language }}</span>
+                      </button>
+                    </form>
+                  </li>
+                  {% empty %}
+                  <li><span class="dropdown-item text-muted">Нет языков</span></li>
+                  {% endfor %}
+                </ul>
               </div>
               {% if streak_today %}
               <div class='verbalis-streak-div verbalis-item-div' style='margin-right: 0'>
@@ -101,10 +139,12 @@
                 <span class="streak-text" style='color: #a8a8a8'> {{ days }} </span>
               </div>
               {% endif %}
-              <div class='verbalis-word-div verbalis-item-div' style='margin-right: 0'>
-                <img class='streak-img' src="{% static 'img/book_final.png' %}">
-                <span class="streak-text word-text"> {{ words_count }} </span>
-              </div>
+              <a href="{% url 'trainings:train' %}" class="text-decoration-none">
+                <div class='verbalis-word-div verbalis-item-div' style='margin-right: 0'>
+                  <img class='streak-img' src="{% static 'img/book_final.png' %}">
+                  <span class="streak-text word-text"> {{ words_count }} </span>
+                </div>
+              </a>
               {% else %}
               <div class='verbalis-lang-div verbalis-item-div' style='text-align: center; margin-right: 0'> язык <br> не выбран </div>
               {% endif %}
