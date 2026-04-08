@@ -54,3 +54,14 @@ input:focus {
     color: white;
     border: none;
 }
+
+@media (max-width: 767.98px) {
+    .verbalis-form-div {
+        padding: 4% 6%;
+    }
+
+    .verbalis-form-btn {
+        width: 100%;
+        margin: 3% 0;
+    }
+}

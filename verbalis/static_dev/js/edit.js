@@ -1,60 +1,127 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const puzzleZone = document.getElementById('puzzleZone');
-  const addBtn = document.getElementById('addPuzzleBtn');
-  const template = document.getElementById('puzzleTemplate');
-  let puzzleCounter = 1;
+(function () {
+    const planArea      = document.getElementById('plan-area');
+    const availableArea = document.getElementById('available-area');
+    const saveBtn       = document.getElementById('save-btn');
+    const saveStatus    = document.getElementById('save-status');
+    const PUZZLE_IMG    = window.PUZZLE_IMG || '';
 
-  // --- Добавление пазла ---
-  addBtn.addEventListener('click', () => {
-    const clone = template.content.cloneNode(true);
-    const img = clone.querySelector('img');
-    img.dataset.id = puzzleCounter;
-    img.src = img.src.replace('?', puzzleCounter);
-    puzzleCounter++;
+    /* ── SortableJS ─────────────────────────────────────── */
+    Sortable.create(planArea, {
+        animation: 180,
+        ghostClass:  'sortable-ghost',
+        chosenClass: 'sortable-chosen',
+        onEnd: updateBadges,
+    });
 
-    const draggable = img;
-    draggable.addEventListener('dragstart', dragStart);
-    draggable.addEventListener('dragend', dragEnd);
+    /* ── Remove ─────────────────────────────────────────── */
+    planArea.addEventListener('click', function (e) {
+        const btn = e.target.closest('.module-remove-btn');
+        if (!btn) return;
+        const card = btn.closest('.module-card-edit');
+        if (!card) return;
 
-    puzzleZone.appendChild(draggable);
-  });
+        if (availableArea) {
+            availableArea.appendChild(makeAvailableCard(card.dataset.id, card.dataset.displayed));
+        }
+        card.remove();
+        updateBadges();
+        updateEmptyHint();
+    });
 
-  // --- Drag & Drop внутри зоны ---
-  function dragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.dataset.id);
-    e.target.classList.add('dragging');
-  }
+    /* ── Add ─────────────────────────────────────────────── */
+    if (availableArea) {
+        availableArea.addEventListener('click', function (e) {
+            const card = e.target.closest('.module-card-available');
+            if (!card) return;
 
-  function dragEnd(e) {
-    e.target.classList.remove('dragging');
-  }
-
-  puzzleZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-
-    const afterElement = getDragAfterElement(puzzleZone, e.clientX);
-    const draggable = document.querySelector('.dragging');
-
-    if (afterElement == null) {
-      puzzleZone.appendChild(draggable);
-    } else {
-      puzzleZone.insertBefore(draggable, afterElement);
+            planArea.appendChild(makePlanCard(card.dataset.id, card.dataset.displayed));
+            card.remove();
+            updateBadges();
+            updateEmptyHint();
+        });
     }
-  });
 
-  function getDragAfterElement(container, x) {
-    const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
+    /* ── Save ────────────────────────────────────────────── */
+    saveBtn.addEventListener('click', function () {
+        const ids = Array.from(
+            planArea.querySelectorAll('.module-card-edit')
+        ).map(c => parseInt(c.dataset.id));
 
-    return draggableElements.reduce((closest, child) => {
-      const box = child.getBoundingClientRect();
-      const offset = x - box.left - box.width / 2;
+        saveBtn.disabled = true;
+        saveStatus.textContent = '';
 
-      if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child };
-      } else {
-        return closest;
-      }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
-  }
-});
+        fetch(window.EDIT_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': window.CSRF_TOKEN,
+            },
+            body: JSON.stringify({ modules: ids }),
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                saveStatus.textContent = '✓ Сохранено';
+                saveStatus.style.color = 'green';
+            } else {
+                saveStatus.textContent = 'Ошибка сохранения';
+                saveStatus.style.color = 'red';
+            }
+        })
+        .catch(() => {
+            saveStatus.textContent = 'Ошибка соединения';
+            saveStatus.style.color = 'red';
+        })
+        .finally(() => { saveBtn.disabled = false; });
+    });
+
+    /* ── Helpers ─────────────────────────────────────────── */
+    function makePlanCard(id, displayed) {
+        const div = document.createElement('div');
+        div.className = 'module-card-edit';
+        div.dataset.id = id;
+        div.dataset.displayed = displayed;
+        div.innerHTML =
+            `<img src="${PUZZLE_IMG}" alt="">` +
+            `<div class="module-overlay"><span>${displayed}</span></div>` +
+            `<span class="drag-order-badge"></span>` +
+            `<button class="module-remove-btn" title="Убрать">×</button>`;
+        return div;
+    }
+
+    function makeAvailableCard(id, displayed) {
+        const div = document.createElement('div');
+        div.className = 'module-card-available';
+        div.dataset.id = id;
+        div.dataset.displayed = displayed;
+        div.innerHTML =
+            `<img src="${PUZZLE_IMG}" alt="">` +
+            `<div class="module-overlay"><span>${displayed}</span></div>` +
+            `<div class="module-add-badge">+</div>`;
+        return div;
+    }
+
+    function updateBadges() {
+        planArea.querySelectorAll('.module-card-edit').forEach((card, i) => {
+            const b = card.querySelector('.drag-order-badge');
+            if (b) b.textContent = i + 1;
+        });
+    }
+
+    function updateEmptyHint() {
+        const cards = planArea.querySelectorAll('.module-card-edit');
+        let hint = planArea.querySelector('.empty-plan-hint');
+        if (cards.length === 0) {
+            if (!hint) {
+                hint = document.createElement('span');
+                hint.className = 'empty-plan-hint';
+                hint.textContent = 'Добавьте модули из списка ниже';
+                planArea.appendChild(hint);
+            }
+        } else if (hint) {
+            hint.remove();
+        }
+    }
+
+    updateBadges();
+})();

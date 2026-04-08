@@ -1,18 +1,101 @@
 {% extends "base.html" %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+<style>
+  .crop-img-wrap { max-height: 60vh; overflow: hidden; }
+  .crop-img-wrap img { display: block; max-width: 100%; }
+</style>
+{% endblock %}
+
 {% block content %}
-  <div class="col-5 m-3 mx-auto verbalis-form-div">
-    <div class="verbalis-form-title">
-      Изменение данных
-    </div>
-    <div class="">
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <div class='center-div'>
-            <button type="submit" class="verbalis-form-btn">Изменить</button>
+  <div class="col-12 col-md-5 m-3 mx-auto verbalis-form-div">
+    <div class="verbalis-form-title">Изменение данных</div>
+    <form method="post" enctype="multipart/form-data" id="edit-form">
+      {% csrf_token %}
+      {{ form }}
+      <div class='center-div'>
+        <button type="submit" class="verbalis-form-btn">Изменить</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal fade" id="cropModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Обрезать фото профиля</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-      </form>
+        <div class="modal-body">
+          <div class="crop-img-wrap">
+            <img id="crop-image" src="" alt="">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="verbalis-form-btn" id="crop-confirm-btn">Применить</button>
+        </div>
+      </div>
     </div>
   </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+<script>
+(function () {
+    const fileInput  = document.getElementById('id_image');
+    const cropImage  = document.getElementById('crop-image');
+    const confirmBtn = document.getElementById('crop-confirm-btn');
+    const modalEl    = document.getElementById('cropModal');
+    const modal      = new bootstrap.Modal(modalEl);
+
+    let cropper   = null;
+    let confirmed = false;
+    let fileName  = '';
+    let fileType  = '';
+
+    fileInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (!file) return;
+        fileName = file.name;
+        fileType = file.type || 'image/jpeg';
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            cropImage.src = e.target.result;
+            modal.show();
+        };
+        reader.readAsDataURL(file);
+    });
+
+    modalEl.addEventListener('shown.bs.modal', function () {
+        if (cropper) cropper.destroy();
+        cropper = new Cropper(cropImage, {
+            aspectRatio: 1,
+            viewMode: 1,
+            dragMode: 'move',
+            autoCropArea: 0.9,
+            responsive: true,
+        });
+    });
+
+    modalEl.addEventListener('hidden.bs.modal', function () {
+        if (cropper) { cropper.destroy(); cropper = null; }
+        if (!confirmed) fileInput.value = '';
+        confirmed = false;
+    });
+
+    confirmBtn.addEventListener('click', function () {
+        if (!cropper) return;
+        cropper.getCroppedCanvas({ width: 400, height: 400 }).toBlob(function (blob) {
+            const file = new File([blob], fileName, { type: fileType });
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            fileInput.files = dt.files;
+            confirmed = true;
+            modal.hide();
+        }, fileType);
+    });
+})();
+</script>
 {% endblock %}

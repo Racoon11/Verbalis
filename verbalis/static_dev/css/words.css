@@ -13,11 +13,33 @@
     border-radius: 5px;
     font-size: 15pt;
     padding: 0px 9px;
+    min-width: 33px;
+    min-height: 33px;
 }
 
 
 .plus-button:hover {
     background-color: #bbddf2;
+}
+
+.plus-button--added {
+    background-color: #ebebeb;
+    border-color: #aeaeae;
+    color: #aeaeae;
+}
+
+.plus-button--added:hover {
+    background-color: #d7d7d7;
+}
+
+.word-added {
+    text-decoration: none;
+    color: inherit;
+}
+
+.word-link {
+    text-decoration: none;
+    color: inherit;
 }
 
 
@@ -217,6 +239,10 @@
   position: absolute;
 }
 
+.padding-top {
+  padding-top: 30px;
+}
+
 .word-title.detail {
   font-size: 20pt;
   text-transform: capitalize;
@@ -255,4 +281,27 @@
   height: 400px; /* или любая другая фиксированная/максимальная высота */
   overflow-y: auto; /* или scroll */
   overflow-x: hidden;
+}
+
+@media (max-width: 767.98px) {
+    .word-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 20% auto;
+    }
+
+    .word-card.small {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+@media (max-width: 479.98px) {
+    .word-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,0 +1,200 @@
+/* ── Plan area ─────────────────────────────────────────────── */
+.edit-plan-area {
+    min-height: 160px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 14px;
+    border: 2px dashed #A2C5FF;
+    border-radius: 12px;
+    background: #f5f9ff;
+    transition: background 0.2s, border-color 0.2s;
+}
+.empty-plan-hint {
+    color: #bbb;
+    font-size: 11pt;
+    margin: auto;
+    pointer-events: none;
+}
+
+/* ── Module card (plan) ─────────────────────────────────────── */
+.module-card-edit {
+    position: relative;
+    width: 160px;
+    aspect-ratio: 2 / 1.5;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    background: white;
+    box-shadow: 0 2px 8px rgba(58,130,250,0.15);
+    transition: box-shadow 0.15s, transform 0.15s;
+}
+.module-card-edit:hover {
+    box-shadow: 0 4px 14px rgba(58,130,250,0.3);
+    transform: translateY(-2px);
+}
+.module-card-edit:active { cursor: grabbing; }
+.module-card-edit img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+}
+.module-card-edit .module-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #1a2e50;
+    padding: 8px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 11pt;
+}
+.drag-order-badge {
+    position: absolute;
+    bottom: 5px;
+    left: 7px;
+    background: rgba(255,255,255,0.82);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 9pt;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #234681;
+    z-index: 10;
+}
+.module-remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255,255,255,0.85);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    color: #234681;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 0;
+    transition: background 0.15s, color 0.15s;
+}
+.module-remove-btn:hover {
+    background: rgba(220, 50, 50, 0.9);
+    color: white;
+}
+
+/* SortableJS */
+.sortable-ghost  { opacity: 0.25; }
+.sortable-chosen { box-shadow: 0 6px 20px rgba(58,130,250,0.45) !important; }
+
+/* ── Available modules ─────────────────────────────────────── */
+.available-modules-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 0;
+}
+.module-card-available {
+    position: relative;
+    width: 160px;
+    aspect-ratio: 2 / 1.5;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.72;
+    background: white;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.15s;
+}
+.module-card-available:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(58,130,250,0.25);
+}
+.module-card-available img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    filter: grayscale(35%);
+    transition: filter 0.2s;
+}
+.module-card-available:hover img { filter: none; }
+.module-card-available .module-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #1a2e50;
+    padding: 8px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 11pt;
+}
+.module-add-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(58,130,250,0.88);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    color: white;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* ── Section titles & footer ───────────────────────────────── */
+.edit-section-title {
+    color: #234681;
+    font-weight: 700;
+    font-size: 12pt;
+    margin: 18px 0 8px;
+}
+.edit-section-title span {
+    color: #aaa;
+    font-size: 9pt;
+    font-weight: 400;
+}
+.edit-save-btn {
+    background-color: #3A82FA;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 32px;
+    font-size: 13pt;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.edit-save-btn:hover     { background-color: #234681; }
+.edit-save-btn:disabled  { background-color: #aaa; cursor: default; }
+
+@media (max-width: 575.98px) {
+    .module-card-edit,
+    .module-card-available { width: 130px; }
+}

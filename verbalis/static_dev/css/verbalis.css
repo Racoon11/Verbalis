@@ -114,3 +114,24 @@ body {
     max-width: 200px;
     display: inline-block;
 }
+
+@media (max-width: 767.98px) {
+    .search-container {
+        max-width: 100%;
+    }
+
+    .search-input {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .verbalis-test-div {
+        padding: 14px 18px;
+        font-size: 13pt;
+    }
+
+    .pagination-text {
+        font-size: 11pt;
+        margin: 8px 16px;
+    }
+}

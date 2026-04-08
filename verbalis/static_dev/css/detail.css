@@ -69,3 +69,22 @@
 .pencil {
     color:#234681;
 }
+
+@media (max-width: 767.98px) {
+    .verbalis-username {
+        font-size: 18pt;
+    }
+
+    .foll-text {
+        font-size: 13pt;
+    }
+
+    .foll-number {
+        font-size: 12pt;
+    }
+
+    .find-friend-button {
+        padding: 6px 14px;
+        margin: 4% 0%;
+    }
+}

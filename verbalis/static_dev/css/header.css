@@ -134,3 +134,41 @@
 .word-text {
     color: #234681;
 }
+
+@media (max-width: 767.98px) {
+    .verbalis-nav-btn {
+        padding: 8px 14px;
+        font-size: 11pt;
+        margin: 3px 5px;
+    }
+
+    .verbalis-item-div {
+        padding: 6px 10px;
+        margin-right: 0;
+    }
+
+    .language-code {
+        font-size: 22px;
+    }
+
+    .streak-text {
+        font-size: 22px;
+    }
+
+    .lang-img {
+        width: 32px;
+    }
+
+    .streak-img {
+        width: 22px;
+    }
+
+    .verbalis-nav-img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .verbalis-nav-username {
+        font-size: 12pt;
+    }
+}

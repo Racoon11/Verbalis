@@ -4,26 +4,63 @@
   Тренировка
 {% endblock %}
 {% block content %}
-<div class="col-7 m-3 mx-auto verbalis-user-div" style='padding: 20px 60px;'>
+<div class="col-12 col-md-7 m-3 mx-auto verbalis-user-div verbalis-train-container">
     <div class="col verbalis-user-info-div">
         <div id='train'>
             <div id='rus-eng'>
                 <div class='col-12 d-flex justify-content-center'>
-                    <span class='word-title detail'> Слово </span>
+                    <span class='word-title detail' style='text-transform: none'> Тренировка закончена! </span>
                 </div>
-                <form>
-                <div class='col-12 d-flex justify-content-center'>
-                    <input id='word-input' class='train-word-input'></input>
-                </div>
-                <div class='col-12 d-flex justify-content-center'>
-                    <button class='plus-button detail clickable-word train-button' style='width: 40%'>Проверить</button>
-                </div>
-              </form>
 
-                
-                <div class='train-help-text d-flex justify-content-end'>
-                    Перевод слова с английского на русский
+                <div class='row d-flex justify-content-center padding-top'>
+                    <div class='col-5'>
+                        <b> Слово </b>
+                    </div>
+                    <div class='col-2 d-flex justify-content-end'>
+                        <b> Ошибки </b>
+                    </div>
                 </div>
+                <div class='row d-flex justify-content-center'>
+                    <div class='col-5 result-text'>
+                        Word - Слово
+                    </div>
+                    <div class='col-2 d-flex justify-content-end result-text'>
+                        4
+                    </div>
+                </div>
+                <div class='row d-flex justify-content-center'>
+                    <div class='col-5 result-text'>
+                        Word - Слово
+                    </div>
+                    <div class='col-2 d-flex justify-content-end result-text'>
+                        4
+                    </div>
+                </div>
+                <div class='row d-flex justify-content-center'>
+                    <div class='col-5 result-text'>
+                        Word - Слово
+                    </div>
+                    <div class='col-2 d-flex justify-content-end result-text'>
+                        4
+                    </div>
+                </div>
+                <div class='row d-flex justify-content-center'>
+                    <div class='col-5 result-text'>
+                        Word - Слово
+                    </div>
+                    <div class='col-2 d-flex justify-content-end result-text'>
+                        4
+                    </div>
+                </div>
+                <div class='row d-flex justify-content-center'>
+                    
+                    <a class='col-6 d-flex justify-content-center no-decoration' href="{% url 'trainings:list'%}">
+                        
+                            <button class='plus-button detail clickable-word train-button'>На главную</button>
+                    </a>
+                    
+                </div>
+
             </div>
         </div>
     </div>
@@ -32,10 +69,12 @@
 <script>
   window.APP_DATA = {
     userId: {{ user_id|default:"null" }},
-    words: {{ words|safe }}
+    words: {{ words|safe }},
+    csrf: "{{ csrf_token }}",
+    order: {{ order|safe }}
   };
 </script>
 
-<script src="{% static 'js/train.js' %}"></script>
+<script type="module" src="{% static 'js/train.js' %}"></script>
 
 {% endblock %}

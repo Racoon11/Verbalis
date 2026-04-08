@@ -1,39 +1,81 @@
 {% extends "base.html" %}
-{% block title %}
-  Редактирование тренировки
-{% endblock %}
+{% block title %}Редактирование тренировки{% endblock %}
 {% load static %}
-{% block content %}
 
-<!-- Кнопка добавления -->
-<div class='col-8 m-3 mx-auto'>
-        <div class='row'>
-            <div class='col-1'>
-            </div>
-            <div class='col-10 verbalis-training-text'>
-                Редактирование тренировки:
-            </div>
-            <div class='col-1 pencil'>
-                <a href="{% url 'trainings:edit' %}"> {% include "includes/svg/pencil.html" %} </a>
-            </div>
-        </div>
-        <div class="modules-grid">
-        {% for module in modules %}
-            <div class="module-card">
-            {% if forloop.first %}
-                <img src="{% static 'img/open_puzzle.png' %}">
-            {% elif forloop.last %}
-                <img src="{% static 'img/close_puzzle.png' %}">
-            {% else %}
-                <img src="{% static 'img/middle_puzzle.png' %}">
-            {% endif %}
-                <div class="module-overlay" id="{{ module.id }}">
-                    <span>{{ module.displayed }}</span>
-                </div>
-            </div>
-        {% endfor %}
-        </div>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/edit_training.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="col-12 col-md-10 col-lg-8 m-3 mx-auto verbalis-user-div" style="padding: 24px 28px;">
+
+    <div class="d-flex align-items-center mb-1">
+        <span style="font-size: 16pt; font-weight: 700; color: #234681;">
+            Редактирование тренировки
+        </span>
     </div>
 
-{% comment %} <script src="{% static 'js/edit.js' %}"></script> {% endcomment %}
-{% endblock%}
+    <!-- ── Current plan ── -->
+    <div class="edit-section-title">
+        Ваш план
+        <span>(перетащите карточки для изменения порядка)</span>
+    </div>
+
+    <div id="plan-area" class="edit-plan-area">
+        {% for module in user_modules %}
+        <div class="module-card-edit"
+             data-id="{{ module.id }}"
+             data-displayed="{{ module.displayed }}">
+            <img src="{% static 'img/middle_puzzle.png' %}" alt="">
+            <div class="module-overlay">
+                <span>{{ module.displayed }}</span>
+            </div>
+            <span class="drag-order-badge">{{ forloop.counter }}</span>
+            <button class="module-remove-btn" title="Убрать">×</button>
+        </div>
+        {% empty %}
+        <span class="empty-plan-hint">Добавьте модули из списка ниже</span>
+        {% endfor %}
+    </div>
+
+    <!-- ── Available modules ── -->
+    {% if available_modules %}
+    <div class="edit-section-title">
+        Доступные модули
+        <span>(нажмите, чтобы добавить в план)</span>
+    </div>
+    <div id="available-area" class="available-modules-area">
+        {% for module in available_modules %}
+        <div class="module-card-available"
+             data-id="{{ module.id }}"
+             data-displayed="{{ module.displayed }}">
+            <img src="{% static 'img/middle_puzzle.png' %}" alt="">
+            <div class="module-overlay">
+                <span>{{ module.displayed }}</span>
+            </div>
+            <div class="module-add-badge">+</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ── Footer ── -->
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <a href="{% url 'trainings:list' %}" class="verbalis-nav-link" style="font-size: 11pt;">
+            ← К тренировке
+        </a>
+        <button class="edit-save-btn" id="save-btn">Сохранить</button>
+    </div>
+    <div id="save-status" style="text-align: right; font-size: 10pt; min-height: 18px; margin-top: 6px;"></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.3/Sortable.min.js"></script>
+<script>
+  window.EDIT_URL    = "{% url 'trainings:edit' %}";
+  window.CSRF_TOKEN  = "{{ csrf_token }}";
+  window.PUZZLE_IMG  = "{% static 'img/middle_puzzle.png' %}";
+</script>
+<script src="{% static 'js/edit.js' %}"></script>
+
+{% endblock %}

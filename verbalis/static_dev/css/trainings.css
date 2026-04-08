@@ -7,6 +7,20 @@
     margin-bottom: 26px;
 }
 
+.words-to-repeat-div.new {
+  background-color: #E8FFE8;
+  margin-bottom: 0;
+}
+
+.words-to-repeat-div:hover {
+  background-color: #b5cff8;
+}
+
+.words-to-repeat-div.new:hover {
+  background-color: #b2fcb2;
+}
+
+
 .special-font {
     font-family: 'ADLaM Display', Arial, Helvetica, sans-serif;
 }
@@ -81,6 +95,17 @@
   margin: 15px;
   padding: 5px 9px !important;
   font-weight: 700;
+  position: relative;
+}
+
+.option-number {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.5;
+  line-height: 1;
 }
 
 .letter-button {
@@ -140,4 +165,55 @@
 .train-word-input {
   width: 70%;
   margin-top: 20px;
+}
+
+.train-link {
+    color: black;
+    text-decoration: none;
+}
+.no-decoration {
+  text-decoration: none;
+}
+.result-text {
+  color: #234681;
+  font-weight: 600;
+  padding-bottom: 20px;
+}
+
+.verbalis-train-container {
+  padding: 20px 60px;
+}
+
+@media (max-width: 767.98px) {
+    .verbalis-train-container {
+        padding: 16px 20px;
+    }
+
+    .words-to-repeat-div {
+        font-size: 16pt;
+        padding: 14px;
+    }
+
+    .verbalis-training-text {
+        font-size: 13pt;
+    }
+
+    .modules-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+
+    .train-word-input {
+        width: 95%;
+    }
+
+    .train-button {
+        width: 95%;
+        margin: 10px auto;
+    }
+
+    .letter-button {
+        width: 36px !important;
+        height: 36px !important;
+        margin: 3px;
+    }
 }

@@ -6,8 +6,14 @@
         <img src="{% static 'img/logo_text.png' %}" width="180" class="d-inline-block align-top" alt="">
       </a>
       {% with request.resolver_match.view_name as view_name %}
-        <ul class="nav nav-pills">
-          {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
+          <!-- Hamburger button (mobile only) -->
+          <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav" aria-controls="mobileNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Desktop nav items (hidden on mobile) -->
+          <ul class="nav nav-pills d-none d-md-flex align-items-center">
             <li class="nav-item d-flex justify-content-center">
               {% if user.cur_language %}
               <div class='verbalis-lang-div verbalis-item-div'>
@@ -40,10 +46,10 @@
               </li>
             {% endif %}
             <li class="nav-item dropdown">
-              <a class="verbalis-nav-username" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="verbalis-nav-username d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class='ellipsis'> {{ user.username }} </span>
                 {% if user.image %}
-                  <img src="{{ user.image.url }}"  class='verbalis-nav-img'>
+                  <img src="{{ user.image.url }}" class='verbalis-nav-img'>
                 {% else %}
                   <img src="{% static 'img/profile.png' %}" class='verbalis-nav-img'>
                 {% endif %}
@@ -54,7 +60,58 @@
                 <li><a class="dropdown-item" href="{% url 'words:user_collection_list' %}">Мои коллекции</a></li>
               </ul>
             </li>
-          {% else %}
+          </ul>
+
+          <!-- Mobile collapse menu -->
+          <div class="collapse navbar-collapse d-md-none" id="mobileNav">
+            <ul class="nav flex-column mt-2">
+              <li class="nav-item verbalis-header-li {% if 'trainings' in view_name %} header-chosen {% endif %}">
+                <a class='verbalis-nav-link' href='{% url "trainings:list" %}'>Тренировка</a>
+              </li>
+              <li class="nav-item verbalis-header-li {% if 'collection' in view_name %} header-chosen {% endif %}">
+                <a class='verbalis-nav-link' href='{% url "words:collection_list" %}'>Сборники</a>
+              </li>
+              <li class="nav-item verbalis-header-li {% if 'words' in view_name and 'collection' not in view_name %} header-chosen {% endif %}">
+                <a class='verbalis-nav-link' href='{% url "words:list" %}'>Слова</a>
+              </li>
+              <li class="nav-item verbalis-header-li">
+                <a class="verbalis-nav-link" href="{% url 'users:detail' user.pk %}">Личный кабинет</a>
+              </li>
+              <li class="nav-item verbalis-header-li">
+                <a class="verbalis-nav-link" href="{% url 'words:user_list' %}">Мои слова</a>
+              </li>
+              <li class="nav-item verbalis-header-li">
+                <a class="verbalis-nav-link" href="{% url 'words:user_collection_list' %}">Мои коллекции</a>
+              </li>
+            </ul>
+            <div class="d-flex gap-2 py-2 flex-wrap">
+              {% if user.cur_language %}
+              <div class='verbalis-lang-div verbalis-item-div' style='margin-right: 0'>
+                <img class='lang-img' src="{{ user.cur_language.icon.url }}">
+                <span class="language-code"> {{ user.cur_language.slug }} </span>
+              </div>
+              {% if streak_today %}
+              <div class='verbalis-streak-div verbalis-item-div' style='margin-right: 0'>
+                <img class='streak-img' src="{% static 'img/light.png' %}">
+                <span class="streak-text"> {{ days }} </span>
+              </div>
+              {% else %}
+              <div class='verbalis-streak-off-div verbalis-item-div' style='margin-right: 0'>
+                <img class='streak-img' src="{% static 'img/light_off.png' %}">
+                <span class="streak-text" style='color: #a8a8a8'> {{ days }} </span>
+              </div>
+              {% endif %}
+              <div class='verbalis-word-div verbalis-item-div' style='margin-right: 0'>
+                <img class='streak-img' src="{% static 'img/book_final.png' %}">
+                <span class="streak-text word-text"> {{ words_count }} </span>
+              </div>
+              {% else %}
+              <div class='verbalis-lang-div verbalis-item-div' style='text-align: center; margin-right: 0'> язык <br> не выбран </div>
+              {% endif %}
+            </div>
+          </div>
+        {% else %}
+          <ul class="nav nav-pills">
             {% if view_name != 'login' %}
                 <button type="button" class="verbalis-nav-btn"><a class="text-decoration-none text-reset"
                     href="{% url 'login' %}">Вход</a></button>
@@ -63,14 +120,14 @@
                 <button type="button" class="verbalis-nav-btn"><a class="text-decoration-none text-reset"
                     href="{% url 'users:registration' %}">Регистрация</a></button>
             {% endif %}
-          {% endif %}
-        </ul>
+          </ul>
+        {% endif %}
       {% endwith %}
     </div>
   </nav>
   {% if user.is_authenticated %}
   {% with request.resolver_match.view_name as view_name %}
-    <nav class="navbar navbar-light verbalis-nav" style="background-color: #D6ECFA; margin-top: 1px; margin-left: auto; padding: 0;">
+    <nav class="navbar navbar-light verbalis-nav d-none d-md-flex" style="background-color: #D6ECFA; margin-top: 1px; margin-left: auto; padding: 0;">
       <div class="container">
       <ul class="nav nav-pills ms-auto">
         <li class="nav-item verbalis-header-li {% if 'trainings' in view_name %} header-chosen {% endif %}">
