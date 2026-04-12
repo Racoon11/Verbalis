@@ -88,7 +88,7 @@ export class SpellingExercise extends BaseExercise {
 
             if (this.word.progress >= targetWord.length) {
                 removeKeyListener();
-                createNextButton(() => this.trainer.nextStep());
+                createNextButton(() => this.trainer.nextStep(), this.word.sentences);
             }
         } else {
             this.word.mistakes[this.trainer.currentExerciseId]++;

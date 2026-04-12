@@ -11,13 +11,16 @@ export class TranslationExercise extends BaseExercise {
         this.type = type;
     }
 
-    async render() {
+    async render(token) {
         const { id, word, translation } = this.word;
         const [displayWord, correctAnswer] = this.type === 'rus'
             ? [word, translation]
             : [translation, word];
 
         const similarWords = await getSimilarWords(id);
+
+        if (this.trainer.renderToken !== token) return;
+
         const distractors = similarWords.map(w => this.type === 'rus' ? w.translation : w.word);
         const options = shuffleArray([correctAnswer, ...distractors]);
 
@@ -73,6 +76,6 @@ export class TranslationExercise extends BaseExercise {
         const correctBtn = document.getElementById(correct);
         correctBtn.className += ' ans-correct';
         disableButtons();
-        createNextButton(() => this.trainer.nextStep());
+        createNextButton(() => this.trainer.nextStep(), this.word.sentences);
     }
 }

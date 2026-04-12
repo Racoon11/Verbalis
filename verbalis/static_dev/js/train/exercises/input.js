@@ -59,13 +59,18 @@ export class InputExercise extends BaseExercise {
             </div>
         `;
         const nextBtn = document.getElementById('next-btn');
-        nextBtn.onclick = () => this.trainer.nextStep();
-        document.addEventListener('keydown', function handler(e) {
-            if (e.key === 'Enter') {
-                document.removeEventListener('keydown', handler);
-                nextBtn.click();
-            }
-        });
+        let proceeded = false;
+        const proceed = () => {
+            if (proceeded) return;
+            proceeded = true;
+            document.removeEventListener('keydown', handler);
+            this.trainer.nextStep();
+        };
+        nextBtn.onclick = proceed;
+        const handler = (e) => {
+            if (e.key === 'Enter') proceed();
+        };
+        document.addEventListener('keydown', handler);
 
         const wordToTranslate = document.getElementById('word-to-translate');
         wordToTranslate.innerHTML += ` <span>- ${this.word.word}</span>`;

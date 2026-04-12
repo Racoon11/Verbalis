@@ -13,7 +13,7 @@
         </div>
 
         <div class=''>
-            <button class='more-button' type="button"> {% include "includes/svg/volume.html" %} </button>
+            <button class='more-button' type="button" data-word="{{ object.word }}" data-lang="{{ object.language.slug }}"> {% include "includes/svg/volume.html" %} </button>
             <span class='part-of-speach'>[{{ object.part_of_speach }}]</span>
             <ul>
                 {% for sent in sentences %}

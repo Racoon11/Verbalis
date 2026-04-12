@@ -42,6 +42,7 @@ export class VerbalisTrainer {
     }
 
     render() {
+        this.renderToken = (this.renderToken || 0) + 1;
         this.mainDiv.innerHTML = '';
 
         if (this.currentWordIndex >= this.words.length) {
@@ -58,7 +59,7 @@ export class VerbalisTrainer {
             return;
         }
 
-        Promise.resolve(factory(this, word).render()).catch(err => {
+        Promise.resolve(factory(this, word).render(this.renderToken)).catch(err => {
             console.error('Ошибка при отрисовке упражнения:', err);
         });
     }

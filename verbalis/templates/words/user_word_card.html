@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">
     <div class="audio-section">
-        <span class="icon-speaker">{% include "includes/svg/volume.html" %}</span>
+        <span class="icon-speaker" data-word="{{ obj.word }}" data-lang="{{ obj.language.slug }}" style="cursor:pointer;">{% include "includes/svg/volume.html" %}</span>
         <span class="part-of-speech">[{{obj.part_of_speach}}]</span>
     </div>
     <p class="usage-example" title='{{ obj.sentence_set.first }}'> 
