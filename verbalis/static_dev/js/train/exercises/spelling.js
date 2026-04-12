@@ -67,11 +67,8 @@ export class SpellingExercise extends BaseExercise {
     }
 
     _handleLetterClick(btn, targetWord, displaySlots, refreshInputArea, removeKeyListener = () => {}) {
-        const currentPos = this.word.progress;
-        if (currentPos >= displaySlots.length) return;
-
-        // Пропускаем разделители
-        while (currentPos < displaySlots.length && displaySlots[currentPos] !== '_') {
+        // Пропускаем разделители перед текущей позицией
+        while (this.word.progress < displaySlots.length && displaySlots[this.word.progress] !== '_') {
             this.word.progress++;
         }
 
@@ -80,6 +77,12 @@ export class SpellingExercise extends BaseExercise {
         if (btn.textContent === targetWord[this.word.progress]) {
             displaySlots[this.word.progress] = btn.textContent;
             this.word.progress++;
+
+            // Пропускаем разделители после постановки буквы
+            while (this.word.progress < displaySlots.length && displaySlots[this.word.progress] !== '_') {
+                this.word.progress++;
+            }
+
             refreshInputArea();
             btn.style.display = 'none';
 

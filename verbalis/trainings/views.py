@@ -58,13 +58,17 @@ class TrainingListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.request.user
+        language = user.cur_language
         context['words_to_repeat'] = UserWord.objects.filter(
             user=self.request.user,
+            word__language=language,
             train_number__gt=0,
             next_train_date__lte=timezone.now().date()
             ).count()
         context['new_words'] = UserWord.objects.filter(
             user=self.request.user,
+            word__language=language,
             train_number=0,
             next_train_date__lte=timezone.now().date()).count()
         return context
@@ -113,7 +117,8 @@ def training_view(request):
     user = request.user
     words = Word.objects.filter(
         userword__user=user,
-        userword__next_train_date__lte=today
+        userword__next_train_date__lte=today,
+        language=user.cur_language
     )[:5]
     train_order = list(UserLanguageTraining.objects.filter(
         user=user, language=user.cur_language
