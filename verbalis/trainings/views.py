@@ -152,6 +152,39 @@ def training_view(request):
     return render(request, 'trainings/train.html', context)
 
 
+@login_required
+def check_sentence(request):
+    if request.method != 'POST':
+        return JsonResponse({'status': 'failed'}, status=400)
+
+    data = json.loads(request.body.decode('utf-8'))
+    word = data.get('word', '')
+    sentence = data.get('sentence', '')
+
+    from .sentence_checker import SentenceChecker
+    try:
+        with SentenceChecker() as checker:
+            result = checker.check(word, sentence)
+        return JsonResponse({
+            'word_found': result.word_found,
+            'is_correct': result.is_correct,
+            'errors': [
+                {
+                    'offset': e.offset,
+                    'length': e.length,
+                    'bad_text': e.bad_text,
+                    'replacements': e.replacements,
+                    'message': e.message,
+                    'category': e.category,
+                }
+                for e in result.errors
+            ],
+            'corrected_sentence': result.corrected_sentence,
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
 def get_similar(request, pk):
     word = get_object_or_404(Word, pk=pk)
     lang = word.language

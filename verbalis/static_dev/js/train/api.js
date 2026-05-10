@@ -6,6 +6,19 @@ export async function getSimilarWords(wordId) {
     return data.words;
 }
 
+export async function checkSentence(word, sentence, csrf) {
+    const response = await fetch('/training/check-sentence/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrf,
+        },
+        body: JSON.stringify({ word, sentence }),
+    });
+    if (!response.ok) throw new Error(`Ошибка: ${response.status} ${response.statusText}`);
+    return response.json();
+}
+
 export function updateWords(wordIds, mistakes, csrf) {
     return fetch('/training/update-words/', {
         method: 'POST',

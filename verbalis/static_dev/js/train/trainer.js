@@ -1,18 +1,15 @@
 import { TranslationExercise } from './exercises/translation.js';
 import { SpellingExercise } from './exercises/spelling.js';
 import { InputExercise } from './exercises/input.js';
+import { SentenceExercise } from './exercises/sentence.js';
 import { updateWords } from './api.js';
 
-// Таблица упражнений: id → фабрика.
-// Чтобы добавить новое упражнение:
-//   1. Создайте файл в exercises/
-//   2. Импортируйте его ниже
-//   3. Добавьте строку в EXERCISE_MAP
 const EXERCISE_MAP = {
     1: (trainer, word) => new TranslationExercise(trainer, word, 'rus'),
     2: (trainer, word) => new TranslationExercise(trainer, word, 'eng'),
     3: (trainer, word) => new SpellingExercise(trainer, word),
     4: (trainer, word) => new InputExercise(trainer, word),
+    5: (trainer, word) => new SentenceExercise(trainer, word),
 };
 
 export class VerbalisTrainer {

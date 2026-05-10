@@ -184,6 +184,78 @@
   padding: 20px 60px;
 }
 
+/* ---- Sentence exercise ---- */
+
+.sentence-hint-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.15s;
+}
+
+.sentence-hint-btn:hover {
+    opacity: 1;
+}
+
+.sentence-translation-hint {
+    text-align: center;
+    color: #888;
+    font-size: 13pt;
+    margin-bottom: 4px;
+}
+
+.sentence-retry-msg {
+    text-align: center;
+    color: #c07000;
+    font-size: 11pt;
+    margin-top: 8px;
+}
+
+.sentence-input {
+    width: 80%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 13pt;
+    resize: none;
+}
+
+.sentence-result-block {
+    padding: 12px 16px;
+    margin: 10px 0;
+}
+
+.sentence-user {
+    font-size: 13pt;
+    line-height: 1.6;
+    margin-bottom: 6px;
+}
+
+.sentence-error {
+    color: #c0392b;
+    background-color: #fde8e8;
+    border-radius: 3px;
+    padding: 0 2px;
+    text-decoration: underline wavy #c0392b;
+}
+
+.sentence-corrected {
+    font-size: 12pt;
+    color: #27ae60;
+    margin-top: 4px;
+}
+
+.sentence-ok-msg {
+    font-size: 14pt;
+    font-weight: 600;
+    color: #27ae60;
+    margin-bottom: 8px;
+}
+
 @media (max-width: 767.98px) {
     .verbalis-train-container {
         padding: 16px 20px;

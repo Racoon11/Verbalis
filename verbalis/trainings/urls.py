@@ -12,4 +12,5 @@ urlpatterns = [
          views.get_similar, name='get-similar'),
     path('update-words/', views.update_word_progress,
          name='update-word-progress'),
+    path('check-sentence/', views.check_sentence, name='check-sentence'),
 ]
